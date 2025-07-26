@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BabyCare Smart Monitor - Intelligent Baby Monitoring System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo::before {
+            content: "👶";
+            margin-right: 10px;
+            font-size: 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 120px 0 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="40" r="3" fill="rgba(255,255,255,0.05)"/><circle cx="40" cy="80" r="2" fill="rgba(255,255,255,0.08)"/></svg>');
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease 0.3s both;
+        }
+
+        .cta-button {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            animation: fadeInUp 1s ease 0.6s both;
+            box-shadow: 0 4px 15px rgba(255,107,107,0.4);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255,107,107,0.6);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #333;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .feature-card:hover::before {
+            left: 100%;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* How it Works */
+        .how-it-works {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .step {
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto 1.5rem;
+            box-shadow: 0 4px 15px rgba(102,126,234,0.3);
+        }
+
+        .step h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .step p {
+            color: #666;
+        }
+
+        /* Demo Section */
+        .demo {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .demo-container {
+            background: rgba(255,255,255,0.1);
+            padding: 3rem;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            margin-top: 3rem;
+        }
+
+        .demo-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .demo-feature {
+            background: rgba(255,255,255,0.1);
+            padding: 1.5rem;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .demo-feature:hover {
+            background: rgba(255,255,255,0.2);
+            transform: scale(1.05);
+        }
+
+        /* App Preview */
+        .app-preview {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+
+        .app-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .app-feature {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .app-feature:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .app-feature h3 {
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            background: #333;
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: #667eea;
+        }
+
+        .footer-section p, .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            line-height: 1.8;
+        }
+
+        .footer-section a:hover {
+            color: #667eea;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .steps {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animations */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">BabyCare Monitor</div>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#how-it-works">How it Works</a></li>
+                <li><a href="#demo">Demo</a></li>
+                <li><a href="#app">Mobile App</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Smart Baby Monitoring<br>Redefined</h1>
+                <p>Intelligent cradle monitoring with automatic soothing, cry detection, and instant parent notifications</p>
+                <a href="#demo" class="cta-button">See Live Demo</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">Revolutionary Features</h2>
+            <div class="features-grid">
+                <div class="feature-card animate-on-scroll">
+                    <span class="feature-icon">🎵</span>
+                    <h3>Audio Cry Detection</h3>
+                    <p>Advanced AI algorithms detect baby crying patterns and instantly alert parents through the mobile app with real-time audio streaming.</p>
+                </div>
+                <div class="feature-card animate-on-scroll">
+                    <span class="feature-icon">🏃‍♂️</span>
+                    <h3>Motion Sensing</h3>
+                    <p>Sensitive motion sensors detect cradle movements and automatically initiate gentle swinging to soothe your baby back to sleep.</p>
+                </div>
+                <div class="feature-card animate-on-scroll">
+                    <span class="feature-icon">📱</span>
+                    <h3>Smart App Alerts</h3>
+                    <p>Instant push notifications with loud alarm rings when your attention is needed, ensuring you never miss important moments.</p>
+                </div>
+                <div class="feature-card animate-on-scroll">
+                    <span class="feature-icon">🤖</span>
+                    <h3>Auto-Soothing</h3>
+                    <p>Intelligent cradle control that responds to baby's restlessness with gentle, rhythmic swinging motions for natural comfort.</p>
+                </div>
+                <div class="feature-card animate-on-scroll">
+                    <span class="feature-icon">🔒</span>
+                    <h3>Secure Connection</h3>
+                    <p>Encrypted data transmission ensures your baby's audio and movement data remains private and secure at all times.</p>
+                </div>
+                <div class="feature-card animate-on-scroll">
+                    <span class="feature-icon">⚡</span>
+                    <h3>24/7 Monitoring</h3>
+                    <p>Continuous monitoring with low-power consumption and battery backup ensures uninterrupted protection for your little one.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">How It Works</h2>
+            <div class="steps">
+                <div class="step animate-on-scroll">
+                    <div class="step-number">1</div>
+                    <h3>Easy Installation</h3>
+                    <p>Simply attach the BabyCare Monitor to your existing cradle. No tools required - secure magnetic mounting system.</p>
+                </div>
+                <div class="step animate-on-scroll">
+                    <div class="step-number">2</div>
+                    <h3>Connect to App</h3>
+                    <p>Download our mobile app and pair your device via WiFi. Setup takes less than 2 minutes with guided instructions.</p>
+                </div>
+                <div class="step animate-on-scroll">
+                    <div class="step-number">3</div>
+                    <h3>Intelligent Monitoring</h3>
+                    <p>The device continuously monitors audio and motion, learning your baby's patterns for personalized care.</p>
+                </div>
+                <div class="step animate-on-scroll">
+                    <div class="step-number">4</div>
+                    <h3>Automatic Response</h3>
+                    <p>When restlessness is detected, gentle swinging begins. If crying persists, you receive instant notifications.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="demo" id="demo">
+        <div class="container">
+            <h2 class="section-title">Live Demo Experience</h2>
+            <p>See our intelligent monitoring system in action</p>
+            <div class="demo-container animate-on-scroll">
+                <h3>Simulation Dashboard</h3>
+                <div class="demo-features">
+                    <div class="demo-feature">
+                        <h4>🎤 Audio Level</h4>
+                        <div id="audioMeter" style="background: rgba(255,255,255,0.2); height: 20px; border-radius: 10px; overflow: hidden;">
+                            <div id="audioLevel" style="background: #4CAF50; height: 100%; width: 0%; transition: width 0.3s ease;"></div>
+                        </div>
+                    </div>
+                    <div class="demo-feature">
+                        <h4>📊 Motion Sensor</h4>
+                        <div id="motionIndicator" style="width: 50px; height: 50px; background: rgba(255,255,255,0.2); border-radius: 50%; margin: 0 auto; transition: all 0.3s ease;"></div>
+                    </div>
+                    <div class="demo-feature">
+                        <h4>🔄 Cradle Status</h4>
+                        <div id="cradleStatus" style="font-size: 1.2rem; font-weight: bold;">Monitoring</div>
+                    </div>
+                    <div class="demo-feature">
+                        <h4>📱 Alert Status</h4>
+                        <div id="alertStatus" style="font-size: 1.2rem; font-weight: bold;">All Clear</div>
+                    </div>
+                </div>
+                <button onclick="simulateActivity()" style="background: rgba(255,255,255,0.2); border: 2px solid white; color: white; padding: 10px 20px; border-radius: 25px; margin-top: 2rem; cursor: pointer; transition: all 0.3s ease;">
+                    Simulate Baby Activity
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section class="app-preview" id="app">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">Mobile App Features</h2>
+            <div class="app-features">
+                <div class="app-feature animate-on-scroll">
+                    <h3>📊 Real-time Dashboard</h3>
+                    <p>Monitor your baby's sleep patterns, crying frequency, and cradle activity with beautiful, easy-to-read charts and statistics.</p>
+                </div>
+                <div class="app-feature animate-on-scroll">
+                    <h3>🔊 Live Audio Stream</h3>
+                    <p>Listen to your baby in real-time with crystal-clear audio streaming. Perfect for checking in without disturbing their sleep.</p>
+                </div>
+                <div class="app-feature animate-on-scroll">
+                    <h3>⚙️ Custom Settings</h3>
+                    <p>Adjust sensitivity levels, set quiet hours, customize notification preferences, and control auto-soothing duration.</p>
+                </div>
+                <div class="app-feature animate-on-scroll">
+                    <h3>📈 Sleep Analytics</h3>
+                    <p>Track sleep patterns over time with detailed analytics to understand your baby's sleep habits and identify trends.</p>
+                </div>
+                <div class="app-feature animate-on-scroll">
+                    <h3>👨‍👩‍👧‍👦 Multi-User Access</h3>
+                    <p>Share access with partners, grandparents, or caregivers. Everyone stays connected to your baby's wellbeing.</p>
+                </div>
+                <div class="app-feature animate-on-scroll">
+                    <h3>🚨 Smart Alerts</h3>
+                    <p>Intelligent notification system that learns when to alert you based on your baby's unique patterns and your response history.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>BabyCare Monitor</h3>
+                    <p>Revolutionizing baby monitoring with intelligent technology that gives parents peace of mind and babies better sleep.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <p><a href="#features">Features</a></p>
+                    <p><a href="#how-it-works">How it Works</a></p>
+                    <p><a href="#demo">Demo</a></p>
+                    <p><a href="#app">Mobile App</a></p>
+                </div>
+                <div class="footer-section">
+                    <h3>Support</h3>
+                    <p><a href="mailto:support@babycaredevice.com">support@babycaredevice.com</a></p>
+                    <p><a href="tel:+1234567890">+1 (234) 567-890</a></p>
+                    <p>24/7 Customer Support</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Connect</h3>
+                    <p>Follow us for updates and parenting tips</p>
+                    <p>🐦 Twitter | 📘 Facebook | 📷 Instagram</p>
+                </div>
+            </div>
+            <p>&copy; 2025 BabyCare Monitor. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Animate on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Demo simulation
+        let isSimulating = false;
+
+        function simulateActivity() {
+            if (isSimulating) return;
+            isSimulating = true;
+
+            const audioLevel = document.getElementById('audioLevel');
+            const motionIndicator = document.getElementById('motionIndicator');
+            const cradleStatus = document.getElementById('cradleStatus');
+            const alertStatus = document.getElementById('alertStatus');
+
+            // Simulate baby crying (high audio)
+            setTimeout(() => {
+                audioLevel.style.width = '80%';
+                audioLevel.style.background = '#f39c12';
+                cradleStatus.textContent = 'Detecting Cry';
+                alertStatus.textContent = 'Processing...';
+            }, 500);
+
+            // Simulate motion detection
+            setTimeout(() => {
+                motionIndicator.style.background = '#e74c3c';
+                motionIndicator.style.transform = 'scale(1.2)';
+                cradleStatus.textContent = 'Auto-Soothing Active';
+            }, 1500);
+
+            // Simulate cradle swinging
+            setTimeout(() => {
+                motionIndicator.style.animation = 'bounce 0.5s ease-in-out infinite alternate';
+                cradleStatus.textContent = 'Gentle Swinging';
+            }, 2500);
+
+            // Simulate continued crying - alert parents
+            setTimeout(() => {
+                audioLevel.style.width = '95%';
+                audioLevel.style.background = '#e74c3c';
+                alertStatus.textContent = '🚨 Parent Alert Sent!';
+                alertStatus.style.color = '#ff6b6b';
+                alertStatus.style.fontSize = '1.3rem';
+            }, 4000);
+
+            // Reset simulation
+            setTimeout(() => {
+                audioLevel.style.width = '20%';
+                audioLevel.style.background = '#4CAF50';
+                motionIndicator.style.background = 'rgba(255,255,255,0.2)';
+                motionIndicator.style.transform = 'scale(1)';
+                motionIndicator.style.animation = 'none';
+                cradleStatus.textContent = 'Monitoring';
+                alertStatus.textContent = 'All Clear';
+                alertStatus.style.color = 'white';
+                alertStatus.style.fontSize = '1.2rem';
+                isSimulating = false;
+            }, 7000);
+        }
+
+        // Auto-run demo every 15 seconds
+        setInterval(() => {
+            if (!isSimulating) {
+                simulateActivity();
+            }
+        }, 15000);
+
+        // Add some subtle animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes bounce {
+                0% { transform: translateY(0px) scale(1.2); }
+                100% { transform: translateY(-10px) scale(1.2); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
